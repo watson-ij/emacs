@@ -1,7 +1,9 @@
 (load (expand-file-name "elpaca.el" user-emacs-directory))
 
 (use-package magit
-  :bind ("C-x g" . magit-status))
+  :bind ("C-x g" . magit-status)
+  :config
+  (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
 (use-package emacs
   :elpaca nil
