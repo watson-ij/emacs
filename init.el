@@ -98,6 +98,7 @@
    "g" 'magit-status
    "v" 'split-window-right
    "1" 'delete-other-windows
+   "c" `(,(lambda () (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))) :which-key "config")
    "-" `(,(lambda () (interactive) (dired default-directory)) :which-key "dired")
    "h" '(:ignore t :which-key "help")
    "hm" 'describe-mode
