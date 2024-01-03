@@ -162,6 +162,21 @@
   (marginalia-mode))
 
 (use-package vertico
+  :demand t
+  ; https://systemcrafters.net/live-streams/may-21-2021/
+  :bind (:map minibuffer-local-map
+         ("<backspace>" . dw/minibuffer-backward-kill))
+  :init
+  (defun dw/minibuffer-backward-kill (arg)
+    "When minibuffer is completing a file name delete up to parent
+folder, otherwise delete a character backward"
+    (interactive "p")
+    (if minibuffer-completing-file-name
+        ;; Borrowed from https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608
+        (if (string-match-p "/." (minibuffer-contents))
+            (zap-up-to-char (- arg) ?/)
+          (delete-minibuffer-contents))
+      (delete-backward-char arg)))
   :config
   (vertico-mode))
 
