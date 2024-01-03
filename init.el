@@ -2,6 +2,7 @@
 
 (use-package magit
   :bind ("C-x g" . magit-status)
+  (:map magit-mode-map ("/" . evil-search-forward))
   :config
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
@@ -53,11 +54,6 @@
   (prefer-coding-system 'utf-8)
   (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))
 
-(use-package dired
-  :elpaca nil
-  :init
-  (setq dired-dwim-target t))
-
 
 (use-package evil
   :demand
@@ -67,6 +63,7 @@
   ; (evil-set-leader nil (kbd "<SPC>"))
   ; (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
   ; (evil-define-key 'normal 'global (kbd "<leader>r") 'recentf)
+  (evil-define-key 'insert 'global (kbd "C-<tab>") 'completion-at-point)
   (evil-mode 1))
 
 (use-package general
@@ -74,15 +71,31 @@
   :config
   (general-evil-setup t)
   (general-auto-unbind-keys)
-  (general-define-key
+  (general-override-mode)
+  (general-create-definer leader-def
+    :keymaps 'override
+    :prefix "SPC"
+    :non-normal-prefix "C-SPC")
+  (leader-def
    :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "C-SPC"
+   "SPC" 'execute-extended-command
+   "TAB" 'switch-to-previous-buffer
    "f" 'find-file
+   "b" 'switch-to-buffer
+   "w" 'save-buffer
    "o" 'other-window
+   "k" 'kill-buffer
+   "e" 'eval-last-sexp
    "r" 'recentf
    "g" 'magit-status
-   "1" 'delete-other-windows))
+   "v" 'split-window-right
+   "1" 'delete-other-windows
+   "-" (lambda () (interactive) (dired default-directory))))
+
+(use-package dired
+  :elpaca nil
+  :init
+  (setq dired-dwim-target t))
 
 (use-package which-key
   :custom
