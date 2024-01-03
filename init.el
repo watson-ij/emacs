@@ -24,6 +24,14 @@
   (setq-default indent-tabs-mode nil
 		tab-width 2))
 
+(use-package proced
+  :elpaca nil :init
+  (setq proced-auto-update-flag t
+        proced-enable-color-flag t ; Emacs 29
+        proced-auto-update-interval 5
+        proced-descend t
+        proced-filter 'user))
+
 (use-package doom-themes
   :demand
   :config
@@ -293,13 +301,22 @@
   (org-journal-time-format " ")
   (org-journal-file-type 'weekly)
   (org-journal-file-format "%Y_%m_%d.org")
-  ; (org-journal-enable-agenda-integration nil)
-  ; (org-journal-find-file #'find-file)
+  (org-journal-enable-agenda-integration nil)
+  (org-journal-find-file #'find-file)
+  :config
+  ;; workaround problem when journal files aren't org-mode but org-journal-mode e.g. with org-ql
+  ;; https://github.com/bastibe/org-journal/issues/298
+  (defun org-journal-is-journal () nil)
   :init
   (leader-def
     "nj" 'org-journal-new-entry
     "nd" 'org-journal-new-date-entry
     "nt" 'org-journal-open-current-journal-file))
+
+(use-package org-ql
+  :after org
+  :init
+  (leader-def "ns" 'org-ql-find-in-agenda))
 
 (use-package jupyter
   :config
