@@ -1,15 +1,20 @@
 (load (expand-file-name "elpaca.el" user-emacs-directory))
 
+(use-package magit
+  :bind ("C-x g" . magit-status))
+
 (use-package emacs
   :elpaca nil
   :init
   (set-face-attribute 'default nil
     :font "CaskaydiaCove Nerd Font"
-    :height 160)
+    :height 180)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (menu-bar-mode -1)
+  (pixel-scroll-precision-mode)
+  (blink-cursor-mode 0)
   (setq inhibit-splash-screen t
 	use-file-dialog nil
 	initial-scratch-message nil)
@@ -25,13 +30,88 @@
 (use-package emacs
   :elpaca nil
   :init
-  (setq display-line-numbers 'relative)
-  (global-display-line-numbers-mode))
+  (setq make-backup-files nil
+        auto-save-default nil
+        create-lockfiles nil))
 
-(use-package magit
-  :bind ("C-x g" . magit-status))
+(use-package emacs
+  :elpaca nil
+  :hook (prog-mode . display-line-numbers-mode)
+  :init
+  (setq ring-bell-function 'ignore)
+  (setq display-line-numbers-type 'relative)
+  ;; utf-8 everywhere
+  (set-charset-priority 'unicode)
+  (setq locale-coding-system 'utf-8
+        coding-system-for-read 'utf-8
+        coding-system-for-write 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))
+
+(use-package dired
+  :elpaca nil
+  :init
+  (setq dired-dwim-target t))
 
 (use-package evil
   :demand
   :config
+  (add-to-list 'evil-emacs-state-modes 'elpaca-log-mode)
+  (add-to-list 'evil-emacs-state-modes 'elpaca-ui-mode)
   (evil-mode 1))
+
+;; minibuffer
+
+(use-package marginalia
+  :init
+  (setq marginalia-align 'left)
+  (marginalia-mode))
+
+(use-package vertico
+  :config
+  (vertico-mode))
+
+(use-package vertico-mouse
+  :elpaca nil :after vertico :load-path "elpaca/builds/vertico/extensions/"
+  :config
+  (vertico-mouse-mode))
+
+(use-package orderless
+  :after vertico
+  :config
+  (setq
+   completion-styles '(orderless)
+   orderless-completion-styles '(orderless basic)
+   completion-category-defaults nil
+   completion-category-overrides
+   '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
+                   orderless)))
+   orderless-matching-styles
+   '(orderless-literal
+     orderless-prefixes
+     orderless-initialism
+     orderless-flex
+     orderless-regexp
+     ;; orderless-strict-leading-initialism
+     ;; orderless-strict-initialism
+     ;; orderless-strict-full-initialism
+     ;; orderless-without-literal          ; Recommended for dispatches instead
+     )))
+
+;; end minibuffer
+
+(use-package recentf
+  :elpaca nil
+  :config
+  (recentf-mode))
+
+(use-package vterm)
+
+(use-package pdf-tools
+  :config
+  (pdf-tools-install))
+
+(elpaca-wait)
