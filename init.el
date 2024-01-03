@@ -90,7 +90,15 @@
    "g" 'magit-status
    "v" 'split-window-right
    "1" 'delete-other-windows
-   "-" `(,(lambda () (interactive) (dired default-directory)) :which-key "dired")))
+   "-" `(,(lambda () (interactive) (dired default-directory)) :which-key "dired")
+   "h" '(:ignore t :which-key "help")
+   "hm" 'describe-mode
+   "hk" 'describe-key
+   "hf" 'describe-function
+   "hv" 'describe-variable
+   "hi" 'info
+   "hd" 'apropos-documentation
+   ))
 
 (use-package dired
   :elpaca nil
@@ -154,6 +162,27 @@
      )))
 
 ;; end minibuffer
+
+(use-package corfu
+  :config
+  ;; Enable Corfu more generally for every minibuffer, as long as no other
+  ;; completion UI is active. If you use Mct or Vertico as your main minibuffer
+  ;; completion UI. From
+  ;; https://github.com/minad/corfu#completing-with-corfu-in-the-minibuffer
+  (defun corfu-enable-always-in-minibuffer ()
+    "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+    (unless (or (bound-and-true-p mct--active) ; Useful if I ever use MCT
+                (bound-and-true-p vertico--input))
+      (setq-local corfu-auto nil)       ; Ensure auto completion is disabled
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+  (global-corfu-mode))
+
+(use-package corfu-popupinfo
+  :elpaca nil :after corfu :load-path "elpaca/builds/corfu/extensions/"
+  :config
+  (setq corfu-popupinfo-delay 0.5)
+  (corfu-popupinfo-mode))
 
 (use-package recentf
   :elpaca nil
