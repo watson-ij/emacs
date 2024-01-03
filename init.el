@@ -105,6 +105,8 @@
   ("C-s" . consult-line)
   ("M-g" . consult-goto-line)
   :config
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
   (leader-def
     "p" '(:ignore t :which-key "project")
     "pp" 'consult-line-multi
@@ -113,6 +115,7 @@
     "ps" 'consult-ripgrep
     "s" 'consult-ripgrep
     "y" 'consult-yank-from-kill-ring
+    "x" 'xref-find-references
     "i" 'consult-outline
     "b" 'consult-buffer))
 
