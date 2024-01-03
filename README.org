@@ -1,0 +1,5 @@
+* Resources
+
+- [[https://arne.me/articles/emacs-from-scratch-part-one-foundations][Emacs from Scratch, part one]]
+- [[https://blog.sumtypeofway.com/posts/emacs-config.html][Opiniated emacs config]]
+- [[https://kristofferbalintona.me/posts/202202211546/][Vertico, Marginalia, All-the-icons-completion, and Orderless]]
