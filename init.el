@@ -56,12 +56,38 @@
   :init
   (setq dired-dwim-target t))
 
+
 (use-package evil
   :demand
   :config
   (add-to-list 'evil-emacs-state-modes 'elpaca-log-mode)
   (add-to-list 'evil-emacs-state-modes 'elpaca-ui-mode)
+  ; (evil-set-leader nil (kbd "<SPC>"))
+  ; (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
+  ; (evil-define-key 'normal 'global (kbd "<leader>r") 'recentf)
   (evil-mode 1))
+
+(use-package general
+  :ensure t
+  :config
+  (general-evil-setup t)
+  (general-auto-unbind-keys)
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+   "f" 'find-file
+   "o" 'other-window
+   "r" 'recentf
+   "g" 'magit-status
+   "1" 'delete-other-windows))
+
+(use-package which-key
+  :custom
+  (which-key-idle-delay 0.5)
+  :config
+  (which-key-setup-minibuffer)
+  (which-key-mode))
 
 ;; minibuffer
 
