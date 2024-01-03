@@ -100,6 +100,26 @@
    "hd" 'apropos-documentation
    ))
 
+(use-package consult
+  :bind
+  ("C-s" . consult-line)
+  ("M-g" . consult-goto-line)
+  :config
+  (leader-def
+    "p" '(:ignore t :which-key "project")
+    "pp" 'consult-line-multi
+    "pi" 'consult-imenu-multi
+    "pf" 'consult-find
+    "ps" 'consult-ripgrep
+    "s" 'consult-ripgrep
+    "y" 'consult-yank-from-kill-ring
+    "i" 'consult-outline
+    "b" 'consult-buffer))
+
+(use-package affe
+  :config
+  (leader-def "a" 'affe-find))
+
 (use-package dired
   :elpaca nil
   :init
@@ -146,9 +166,9 @@
    completion-styles '(orderless)
    orderless-completion-styles '(orderless basic)
    completion-category-defaults nil
-   completion-category-overrides
-   '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
-                   orderless)))
+   ; completion-category-overrides
+   ; '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
+   ;                 orderless)))
    orderless-matching-styles
    '(orderless-literal
      orderless-prefixes
@@ -183,6 +203,23 @@
   :config
   (setq corfu-popupinfo-delay 0.5)
   (corfu-popupinfo-mode))
+
+(use-package cape
+  :init
+  ;; order matters, first wins
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  ;;(add-to-list 'completion-at-point-functions #'cape-history)
+  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+  ;;(add-to-list 'completion-at-point-functions #'cape-elisp-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+  )
 
 (use-package recentf
   :elpaca nil
@@ -223,6 +260,16 @@
 ;;; ORG
 
 (use-package org
+  :custom
+  (org-agenda-files `(,(expand-file-name "~/org-roam")
+                      ,(expand-file-name "~/org-roam/daily")))
+  (org-startup-folded nil)
+  (org-agenda-scheduled-leaders '("S:" "S.%2dx:"))
+  (org-support-shift-select 'always)
+  (org-latex-images-centered nil)
+  (org-src-preserve-indentation nil)
+  (org-edit-src-content-indentation 0)
+  (org-adapt-indentation nil)
   :init
   (leader-def
    "n" '(:ignore t :which-key "org")
