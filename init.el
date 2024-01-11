@@ -8,6 +8,12 @@
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
 (use-package emacs
+  :if (display-graphic-p)
+  :elpaca nil
+  :init
+  (scroll-bar-mode -1))
+
+(use-package emacs
   :elpaca nil
   :init
   (set-face-attribute 'default nil
@@ -15,7 +21,6 @@
     :height 180)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (tool-bar-mode -1)
-  (scroll-bar-mode -1)
   (menu-bar-mode -1)
   (pixel-scroll-precision-mode)
   (blink-cursor-mode 0)
