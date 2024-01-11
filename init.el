@@ -11,6 +11,7 @@
   :if (display-graphic-p)
   :elpaca nil
   :init
+  (pixel-scroll-precision-mode)
   (scroll-bar-mode -1))
 
 (use-package emacs
@@ -22,7 +23,6 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
-  (pixel-scroll-precision-mode)
   (blink-cursor-mode 0)
   (setq inhibit-splash-screen t
 	use-file-dialog nil
