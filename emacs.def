@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: alpine:3.18
+%post
+apk add git emacs make cmake g++ gcc autoconf automake clang16-extra-tools libtool python3 py3-lsp-server bash ripgrep
+%startscript
+emacs
+%runscript
+emacs "$@"
