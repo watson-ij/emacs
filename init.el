@@ -287,6 +287,7 @@ folder, otherwise delete a character backward"
                       "C-r" 'vterm--self-insert))
 
 (use-package pdf-tools
+  :if (not (string= (system-name) "gate"))
   :config
   (pdf-tools-install))
 
