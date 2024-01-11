@@ -1,3 +1,4 @@
+(setq warning-minimum-level :emergency)
 (load (expand-file-name "elpaca.el" user-emacs-directory))
 
 (use-package magit
@@ -66,6 +67,7 @@
 (use-package evil
   :demand
   :config
+  (setq evil-want-keybinding nil)
   (add-to-list 'evil-emacs-state-modes 'elpaca-log-mode)
   (add-to-list 'evil-emacs-state-modes 'elpaca-ui-mode)
   ; (evil-set-leader nil (kbd "<SPC>"))
@@ -271,7 +273,18 @@ folder, otherwise delete a character backward"
       (if (get-buffer name)
           (switch-to-buffer name)
         (vterm name))))
-  (leader-def "t" 'ijw-shell))
+  (leader-def "t" 'ijw-shell)
+  (setq vterm-max-scrollback 5000)
+  :config
+  (general-define-key :states 'insert :keymaps 'vterm-mode-map
+                      "C-a" 'vterm--self-insert
+                      "C-d" 'vterm--self-insert
+                      "C-n" 'vterm--self-insert
+                      "C-k" 'vterm--self-insert
+                      "C-p" 'vterm--self-insert
+                      "C-e" 'vterm--self-insert
+                      "C-z" 'vterm--self-insert
+                      "C-r" 'vterm--self-insert))
 
 (use-package pdf-tools
   :config
@@ -384,5 +397,11 @@ folder, otherwise delete a character backward"
   (setq emms-volume-mode-timeout 2)
   (setq emms-player-list '(emms-player-vlc)
         emms-info-functions '(emms-info-native)))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+
 
 (elpaca-wait)
