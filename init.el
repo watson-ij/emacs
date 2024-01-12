@@ -320,8 +320,10 @@ folder, otherwise delete a character backward"
   (leader-def
    "n" '(:ignore t :which-key "org")
    "nl" 'org-store-link
+   "ni" 'org-insert-link
    "nc" 'org-capture
    "nb" 'org-iswitchb
+   "nv" 'org-open-at-point
    "nn" 'org-agenda))
 
 (use-package org-journal
