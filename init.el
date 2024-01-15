@@ -141,6 +141,8 @@
 
 (use-package dired
   :elpaca nil
+  :custom
+  (dired-listing-switches "-alh")
   :init
   (setq dired-dwim-target t))
 
