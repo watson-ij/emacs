@@ -175,7 +175,8 @@
   :demand t
   ; https://systemcrafters.net/live-streams/may-21-2021/
   :bind (:map minibuffer-local-map
-         ("<backspace>" . dw/minibuffer-backward-kill))
+         ("<backspace>" . dw/minibuffer-backward-kill)
+         ("<del>" . dw/minibuffer-backward-kill))
   :init
   (defun dw/minibuffer-backward-kill (arg)
     "When minibuffer is completing a file name delete up to parent
