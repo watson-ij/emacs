@@ -413,5 +413,18 @@ folder, otherwise delete a character backward"
   :config
   (evil-collection-init))
 
+(use-package evil-goggles
+  :after evil
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces)
+  (custom-set-faces
+   '(evil-goggles-default-face ((t (:inherit 'pulse-highlight-face))))))
+
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
+(use-package yasnippet-snippets)
 
 (elpaca-wait)
