@@ -21,7 +21,7 @@
     :font "CaskaydiaCove Nerd Font"
     :height 180)
   (defalias 'yes-or-no-p 'y-or-n-p)
-  (tool-bar-mode -1)
+  (if (functionp 'tool-bar-mode) (tool-bar-mode -1))
   (menu-bar-mode -1)
   (blink-cursor-mode 0)
   (setq inhibit-splash-screen t
