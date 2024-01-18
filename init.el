@@ -17,9 +17,12 @@
 (use-package emacs
   :elpaca nil
   :init
+  (setq size 180)
+  (when (string= (system-name) "ArchBeasty")
+    (setq size 140))
   (set-face-attribute 'default nil
     :font "CaskaydiaCove Nerd Font"
-    :height 180)
+    :height size)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (if (functionp 'tool-bar-mode) (tool-bar-mode -1))
   (menu-bar-mode -1)
@@ -114,6 +117,7 @@
    "hv" 'describe-variable
    "hi" 'info
    "hd" 'apropos-documentation
+   "hb" 'describe-binding
    ))
 
 (use-package consult
