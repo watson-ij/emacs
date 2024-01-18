@@ -18,6 +18,10 @@
   :if (string= (system-name) "ArchBeasty")
   :elpaca nil
   :init
+  (setq epg-gpg-home-directory "/home/iyan/.gnupg/yubikey")
+  (setenv "SSH_AUTH_SOCK" (substring
+                           (shell-command-to-string
+                            "gpgconf --list-dirs agent-ssh-socket") 0 -1))
   (setenv "GNUPGHOME" "/home/iyan/.gnupg/yubikey"))
 
 (use-package emacs
