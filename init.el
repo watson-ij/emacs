@@ -342,7 +342,8 @@ folder, otherwise delete a character backward"
    "nc" 'org-capture
    "nb" 'org-iswitchb
    "nv" 'org-open-at-point
-   "nn" 'org-agenda))
+   "nw" 'org-todo-list
+   "nn" 'org-agenda-list))
 
 (use-package org-journal
   :after org
@@ -423,6 +424,11 @@ folder, otherwise delete a character backward"
   (setq emms-volume-mode-timeout 2)
   (setq emms-player-list '(emms-player-vlc)
         emms-info-functions '(emms-info-native)))
+
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 (use-package evil-collection
   :after evil
