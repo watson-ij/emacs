@@ -54,7 +54,7 @@
 (use-package doom-themes
   :demand
   :config
-  (load-theme 'doom-challenger-deep t))
+  (load-theme 'doom-spacegrey t))
 (elpaca-wait)
 
 (use-package emacs
@@ -117,6 +117,7 @@
    "r" 'recentf
    "g" 'magit-status
    "v" 'split-window-right
+   "2" 'split-window-right
    "1" 'delete-other-windows
    ";" 'eval-expression
    "c" `(,(lambda () (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))) :which-key "config")
@@ -185,6 +186,10 @@
   :init
   (setq marginalia-align 'left)
   (marginalia-mode))
+
+(use-package embark
+  :bind
+  (("C-;" . embark-act)))
 
 (use-package vertico
   :demand t
@@ -342,6 +347,7 @@ folder, otherwise delete a character backward"
    "nc" 'org-capture
    "nb" 'org-iswitchb
    "nv" 'org-open-at-point
+   "no" 'org-open-at-point
    "nw" 'org-todo-list
    "nn" 'org-agenda-list))
 
