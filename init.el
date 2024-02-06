@@ -100,6 +100,10 @@
   (general-evil-setup t)
   (general-auto-unbind-keys)
   (general-override-mode)
+  (general-create-definer localleader-def
+    :states '(normal visual insert emacs)
+    :prefix ","
+    :non-normal-prefix "C-,")
   (general-create-definer leader-def
     :keymaps 'override
     :states '(normal visual insert emacs)
@@ -119,6 +123,7 @@
    "v" 'split-window-right
    "2" 'split-window-right
    "1" 'delete-other-windows
+   "0" 'delete-window
    ";" 'eval-expression
    "c" `(,(lambda () (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))) :which-key "config")
    "-" `(,(lambda () (interactive) (dired default-directory)) :which-key "dired")
@@ -340,6 +345,11 @@ folder, otherwise delete a character backward"
   (org-edit-src-content-indentation 0)
   (org-adapt-indentation nil)
   :init
+  (general-define-key :states 'normal :keymaps 'org-agenda-mode-map
+                      "q" 'org-agenda-quit
+                      "RET" 'org-agenda-switch-to)
+  (localleader-def :keymaps 'org-mode-map
+    "," 'org-todo)
   (leader-def
    "n" '(:ignore t :which-key "org")
    "nl" 'org-store-link
@@ -434,11 +444,15 @@ folder, otherwise delete a character backward"
 (use-package evil-surround
   :ensure t
   :config
+  (general-def 'visual evil-surround-mode-map
+    "s" 'evil-surround-region
+    "S" 'evil-substitute)
   (global-evil-surround-mode 1))
 
 (use-package evil-collection
   :after evil
   :config
+  (evil-set-initial-state 'org-agenda-mode 'normal)
   (evil-collection-init))
 
 (use-package evil-goggles
