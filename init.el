@@ -201,6 +201,7 @@
   ; https://systemcrafters.net/live-streams/may-21-2021/
   :bind (:map minibuffer-local-map
          ("<backspace>" . dw/minibuffer-backward-kill)
+         ("DEL" . dw/minibuffer-backward-kill) ;; make it work in wezterm remote
          ("<del>" . dw/minibuffer-backward-kill))
   :init
   (defun dw/minibuffer-backward-kill (arg)
