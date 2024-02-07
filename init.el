@@ -321,7 +321,8 @@ folder, otherwise delete a character backward"
                       "C-r" 'vterm--self-insert))
 
 (use-package pdf-tools
-  :if (not (string= (system-name) "gate"))
+  :if (not (or (string= (system-name) "gate")
+               (string-prefix-p "lxplus" (system-name))))
   :config
   (pdf-tools-install))
 
@@ -348,6 +349,7 @@ folder, otherwise delete a character backward"
   :init
   (general-define-key :states 'normal :keymaps 'org-agenda-mode-map
                       "q" 'org-agenda-quit
+                      "g" 'org-agenda-redo-all
                       "RET" 'org-agenda-switch-to)
   (localleader-def :keymaps 'org-mode-map
     "," 'org-todo)
