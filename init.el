@@ -28,8 +28,8 @@
   :elpaca nil
   :init
   (setq size 180)
-  (when (string= (system-name) "ArchBeasty")
-    (setq size 140))
+  (when (string= (system-name) "ArchBeasty") (setq size 140))
+  (when (string= (system-name) "ArchDesktop") (setq size 160))
   (set-face-attribute 'default nil
     :font "CaskaydiaCove Nerd Font"
     :height size)
