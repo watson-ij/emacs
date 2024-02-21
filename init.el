@@ -352,6 +352,7 @@ folder, otherwise delete a character backward"
                       "g" 'org-agenda-redo-all
                       "RET" 'org-agenda-switch-to)
   (localleader-def :keymaps 'org-mode-map
+    "." 'org-ctrl-c-ctrl-c
     "," 'org-todo)
   (leader-def
    "n" '(:ignore t :which-key "org")
@@ -399,6 +400,7 @@ folder, otherwise delete a character backward"
   (require 'jupyter-python)
   ;(use-package ob-mermaid)
   (add-to-list 'org-src-lang-modes '("jupyter" . python))
+  (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -471,5 +473,8 @@ folder, otherwise delete a character backward"
   (yas-global-mode 1))
 
 (use-package yasnippet-snippets)
+
+(use-package nix-mode
+  :mode "\\.nix\\'")
 
 (elpaca-wait)
