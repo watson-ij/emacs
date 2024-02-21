@@ -37,6 +37,11 @@
   (if (functionp 'tool-bar-mode) (tool-bar-mode -1))
   (menu-bar-mode -1)
   (blink-cursor-mode 0)
+  (setq tramp-ssh-controlmaster-options "") 
+  (defun my-vc-off-if-remote ()
+    (if (file-remote-p (buffer-file-name))
+      (setq-local vc-handled-backends nil)))
+  (add-hook 'find-file-hook 'my-vc-off-if-remote)
   (setq inhibit-splash-screen t
 	use-file-dialog nil
 	initial-scratch-message nil)
@@ -54,7 +59,7 @@
 (use-package doom-themes
   :demand
   :config
-  (load-theme 'doom-spacegrey t))
+  (load-theme 'doom-opera t))
 (elpaca-wait)
 
 (use-package emacs
