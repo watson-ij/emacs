@@ -215,9 +215,12 @@ folder, otherwise delete a character backward"
     (interactive "p")
     (if minibuffer-completing-file-name
         ;; Borrowed from https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608
-        (if (string-match-p "/." (minibuffer-contents))
+        (if (and (string-match-p "/\\'" (minibuffer-contents))
+                 (string-match-p "/." (minibuffer-contents)))
             (zap-up-to-char (- arg) ?/)
-          (delete-minibuffer-contents))
+          (delete-backward-char arg)
+          ;(delete-minibuffer-contents)
+          )
       (delete-backward-char arg)))
   :config
   (vertico-mode))
