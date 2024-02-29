@@ -28,10 +28,13 @@
   :elpaca nil
   :init
   (setq size 180)
+  (setq font "CaskaydiaCove Nerd Font")
   (when (string= (system-name) "ArchBeasty") (setq size 140))
   (when (string= (system-name) "ArchDesktop") (setq size 160))
+  (when (string= (system-name) "GuixBeauty") (setq size 160))
+  (when (string= (system-name) "GuixBeauty") (setq font "Cascadia Code"))
   (set-face-attribute 'default nil
-    :font "CaskaydiaCove Nerd Font"
+    :font font
     :height size)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (if (functionp 'tool-bar-mode) (tool-bar-mode -1))
