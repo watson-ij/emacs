@@ -364,7 +364,8 @@ folder, otherwise delete a character backward"
                       "RET" 'org-agenda-switch-to)
   (localleader-def :keymaps 'org-mode-map
     "." 'org-ctrl-c-ctrl-c
-    "," 'org-todo)
+    "," 'org-todo
+    "b" 'org-beamer-export-to-pdf)
   (leader-def
    "n" '(:ignore t :which-key "org")
    "nl" 'org-store-link
