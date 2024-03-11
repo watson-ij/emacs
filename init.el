@@ -347,6 +347,7 @@ folder, otherwise delete a character backward"
 ;;; ORG
 
 (use-package org
+  :hook (org-mode . display-line-numbers-mode)
   :custom
   (org-agenda-files `(,(expand-file-name "~/org-roam")
                       ,(expand-file-name "~/org-roam/daily")))
