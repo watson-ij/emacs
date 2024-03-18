@@ -358,6 +358,7 @@ folder, otherwise delete a character backward"
   (org-src-preserve-indentation nil)
   (org-edit-src-content-indentation 0)
   (org-adapt-indentation nil)
+  (org-export-babel-evaluate t)
   :init
   (require 'org)
   (org-add-link-type
