@@ -359,6 +359,22 @@ folder, otherwise delete a character backward"
   (org-edit-src-content-indentation 0)
   (org-adapt-indentation nil)
   :init
+  (require 'org)
+  (org-add-link-type
+   "color" nil
+   (lambda (path desc format)
+     (cond
+      ((eq format 'html)
+       (format "<span style=\"color:%s;\">%s</span>" path desc))
+      ((eq format 'latex)
+       (format "{\\color{%s}%s}" path desc)))))
+  (setq org-latex-listings 'minted
+        org-latex-packages-alist '(("" "minted"))
+        org-latex-minted-options '(("style" "rainbow_dash") ("frame" "leftline"))
+        org-latex-pdf-process
+        '("%latex --shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "%latex --shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "%latex --shell-escape -interaction nonstopmode -output-directory %o %f"))
   (general-define-key :states 'normal :keymaps 'org-agenda-mode-map
                       "q" 'org-agenda-quit
                       "g" 'org-agenda-redo-all
