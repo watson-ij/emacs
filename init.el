@@ -383,6 +383,7 @@ folder, otherwise delete a character backward"
   (localleader-def :keymaps 'org-mode-map
     "." 'org-ctrl-c-ctrl-c
     "," 'org-todo
+    "t" 'org-babel-tangle
     "b" 'org-beamer-export-to-pdf)
   (leader-def
    "n" '(:ignore t :which-key "org")
