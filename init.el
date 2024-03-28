@@ -508,4 +508,9 @@ folder, otherwise delete a character backward"
 (use-package nix-mode
   :mode "\\.nix\\'")
 
+(use-package reduce-ide
+  :elpaca `(reduce-ide :repo ,(expand-file-name "reduce-ide" user-emacs-directory))
+  (localleader-def :keymaps 'reduce-mode-map
+    "," 'reduce-eval-last-statement))
+
 (elpaca-wait)
