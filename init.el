@@ -135,6 +135,10 @@
    ";" 'eval-expression
    "c" `(,(lambda () (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))) :which-key "config")
    "-" `(,(lambda () (interactive) (dired default-directory)) :which-key "dired")
+   "<left>" 'windmove-left
+   "<right>" 'windmove-right
+   "<down>" 'windmove-down
+   "<up>" 'windmove-up
    "h" '(:ignore t :which-key "help")
    "hm" 'describe-mode
    "hk" 'describe-key
@@ -342,7 +346,27 @@ folder, otherwise delete a character backward"
   :config
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
+(use-package lsp-mode
+  :init (setq lsp-keymap-prefix "C-c l")
+  :hook
+  (python-mode . lsp)
+  (c++-mode . lsp)
+  (lsp-mode . lsp-enable-which-key-integration)
+  :commands lsp)
+(use-package dap-mode
+  :init
+  (require 'dap-gdb-lldb)
+  :config
+  (dap-gdb-lldb-setup))
+(use-package c++-mode
+  :elpaca nil
+  :init
+  (localleader-def :keymaps 'prog-mode-map
+    "c" 'compile
+    "." 'xref-find-definitions
+    "," 'xref-go-back
+    "l" 'lsp-command-map
+    "n" 'flymake-goto-next-error))
 
 ;;; ORG
 
